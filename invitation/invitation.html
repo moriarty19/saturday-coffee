@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Tropa Time: Coffee Ops ☕☂️</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: hidden;
+      padding: 20px;
+      user-select: none;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 28px 20px;
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      max-width: 360px;
+      width: 100%;
+      position: relative;
+    }
+
+    .gif-container {
+      width: 100%;
+      height: 180px;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      background-color: #f1f5f9;
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h1 {
+      color: #0284c7;
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .details-box {
+      background: #f0f9ff;
+      border: 1px dashed #0284c7;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .details-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #0369a1;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .details-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      min-height: 50px;
+      position: relative;
+    }
+
+    button {
+      padding: 14px 22px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+      touch-action: manipulation;
+    }
+
+    #agreeBtn {
+      background-color: #0284c7;
+      color: #ffffff;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    #agreeBtn:active {
+      transform: scale(0.95);
+    }
+
+    #declineBtn {
+      background-color: #f43f5e;
+      color: #ffffff;
+      position: absolute;
+      right: 10px;
+      transition: top 0.15s ease, left 0.15s ease;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="mainCard">
+    <div class="gif-container">
+      <img id="cardGif" src="https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif" alt="Coffee GIF">
+    </div>
+    
+    <h1 id="cardTitle">Urgent Tropa Assembly! ☕</h1>
+    
+    <div class="details-box" id="detailsBox">
+      <div class="details-item">📍 <span><b>Place:</b> Vista Mall Tanza</span></div>
+      <div class="details-item">🌙 <span><b>When:</b> Saturday Evening</span></div>
+      <div class="details-item">☂️ <span><b>Note:</b> Bring an umbrella!</span></div>
+      <div class="details-item">⏰ <span><b>Exact Time:</b> Pag-usapan sa GC</span></div>
+    </div>
+
+    <div class="btn-group" id="btnGroup">
+      <button id="agreeBtn" onclick="acceptInvite()">G, Sama Ako!</button>
+      <button id="declineBtn">Pass Muna</button>
+    </div>
+  </div>
+
+  <script>
+    const declineBtn = document.getElementById('declineBtn');
+
+    function moveButton(e) {
+      if (e) e.preventDefault();
+      
+      const vw = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+      const vh = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+
+      const padding = 20;
+      const maxX = vw - declineBtn.offsetWidth - padding;
+      const maxY = vh - declineBtn.offsetHeight - padding;
+
+      const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+      declineBtn.style.position = 'fixed';
+      declineBtn.style.left = `${randomX}px`;
+      declineBtn.style.top = `${randomY}px`;
+    }
+
+    declineBtn.addEventListener('touchstart', moveButton, { passive: false });
+    declineBtn.addEventListener('pointerdown', moveButton);
+    declineBtn.addEventListener('mouseover', moveButton);
+
+    function acceptInvite() {
+      document.getElementById('cardGif').src = "https://media.giphy.com/media/g9582DNuQppxC/giphy.gif";
+      document.getElementById('cardTitle').innerText = "SET ANG SABADO! 🎉☕";
+      document.getElementById('detailsBox').innerHTML = "<p style='color: #0369a1; font-weight: bold; text-align: center;'>Kita-kits sa Vista Mall Tanza! Huwag kalimutan ang payong. Chat sa GC para sa exact time! ☂️✨</p>";
+      document.getElementById('btnGroup').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
